@@ -34,3 +34,24 @@ CREATE TABLE CAM(
 	primary key (CNO)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS DTC;
+CREATE TABLE DTC(
+	RNO 		int(11) not null COMMENT "ROAD 고유번호",
+	POINT 		int(11) not null COMMENT "몇번째 점인지 0~n",
+	DX 			int(11) COMMENT "x좌표",
+	DY 			int(11) COMMENT "y좌표",
+	
+	primary key (RNO, POINT)
+) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS LDTC;
+CREATE TABLE LDTC(
+	RNO 		int(11) not null COMMENT "ROAD 고유번호",
+	LANE 		int(11) not null COMMENT "차선(1~n)",
+	POINT 		int(11) not null COMMENT "몇번째 점인지 0~n",
+	DX 		int(11) COMMENT "x좌표",
+	DY 			int(11) COMMENT "y좌표",
+	
+	primary key (RNO, LANE, POINT)
+) ENGINE=InnoDB;
+
