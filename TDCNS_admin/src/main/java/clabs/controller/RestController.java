@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -30,6 +31,7 @@ import clabs.srv.vo.RoadLdtc;
 import clabs.tools.ResObject;
 import clabs.tools.StringUtils;
 
+ 
 
 /*
  * this controller is 
@@ -52,10 +54,20 @@ public class RestController extends BaseController {
 	@RequestMapping(value="/getRoad.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject getRoad(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
 		logger.info("getRoad.json - Params:" + params);
-
+		
 		return null;
 	}
-	
+
+	@RequestMapping(value="/getArea.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getArea(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+		logger.info("getArea.json - Params:" + params);
+		Object dtc = adminService.getDtc(params);
+		Object ldtc = adminService.getLdtc(params);
+		Map<String, Object> result = new HashMap<String, Object>();
+		result.put("dtc", dtc);
+		result.put("ldtc", ldtc);
+		return new ResObject(1, "", result);
+	}
 	@RequestMapping(value="/getDtc.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject getDtc(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
 		logger.info("getDtc.json - Params:" + params);
@@ -73,6 +85,7 @@ public class RestController extends BaseController {
 	@RequestMapping(value="/setDtc.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject setDtc(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestBody RoadDtc payload ) throws IOException{
 		logger.info("setDtc.json - Params:" + params);
+        logger.info("payload : " + payload);
 		Map<String, String[]> a=request.getParameterMap();
 		Set<String> keys=a.keySet();
 		logger.info("keys.size():"+keys.size());
@@ -80,7 +93,6 @@ public class RestController extends BaseController {
 			  logger.info(key+":"+a.get(key));
 			}
         
-        logger.info("payload : " + payload);
         int[] result=adminService.setDtc(payload);
         
 		return new ResObject(1,String.format("success : %d, fail : %d", result[0], result[1]), null);
@@ -90,6 +102,7 @@ public class RestController extends BaseController {
 	@RequestMapping(value="/setLdtc.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject setLdtc(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestBody RoadLdtc payload ) throws IOException{
 		logger.info("setLdtc.json - Params:" + params);
+        logger.info("payload : " + payload);
 		
 		Map<String, String[]> a=request.getParameterMap();
 		Set<String> keys=a.keySet();
@@ -98,7 +111,6 @@ public class RestController extends BaseController {
 			  logger.info(key+":"+a.get(key));
 			}
         
-        logger.info("payload : " + payload);
         
         
         
