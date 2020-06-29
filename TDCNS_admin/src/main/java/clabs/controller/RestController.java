@@ -26,6 +26,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.node.ObjectNode;
 
 import clabs.srv.service.AdminService;
+import clabs.srv.vo.RoadCounter;
 import clabs.srv.vo.RoadDtc;
 import clabs.srv.vo.RoadLdtc;
 import clabs.tools.ResObject;
@@ -63,9 +64,11 @@ public class RestController extends BaseController {
 		logger.info("getArea.json - Params:" + params);
 		Object dtc = adminService.getDtc(params);
 		Object ldtc = adminService.getLdtc(params);
+		Object counter = adminService.getCounter(params);
 		Map<String, Object> result = new HashMap<String, Object>();
 		result.put("dtc", dtc);
 		result.put("ldtc", ldtc);
+		result.put("counter", counter);
 		return new ResObject(1, "", result);
 	}
 	@RequestMapping(value="/getDtc.json", produces="application/json;charset=UTF-8")
@@ -81,7 +84,12 @@ public class RestController extends BaseController {
 		Object re = adminService.getLdtc(params);
 		return new ResObject(1,"",re);
 	}
-	
+	@RequestMapping(value="/getCounter.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getCounter(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+		logger.info("getCounter.json - Params:" + params);
+		Object re = adminService.getCounter(params);
+		return new ResObject(1,"",re);
+	}
 	@RequestMapping(value="/setDtc.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject setDtc(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestBody RoadDtc payload ) throws IOException{
 		logger.info("setDtc.json - Params:" + params);
@@ -111,16 +119,25 @@ public class RestController extends BaseController {
 			  logger.info(key+":"+a.get(key));
 			}
         
-        
-        
-        
         int[] result=adminService.setLdtc(payload);
         
 		return new ResObject(1,String.format("success : %d, fail : %d", result[0], result[1]), null);
 	}
 	
-	
-	
-	
-	
+	@RequestMapping(value="/setCounter.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject setCounter(HttpServletRequest request, @RequestParam Map<String, String> params, @RequestBody RoadCounter payload ) throws IOException{
+		logger.info("setCounter.json - Params:" + params);
+        logger.info("payload : " + payload);
+		
+		Map<String, String[]> a=request.getParameterMap();
+		Set<String> keys=a.keySet();
+		logger.info("keys.size():"+keys.size());
+		for (String key : keys) {
+			  logger.info(key+":"+a.get(key));
+			}
+        
+        int[] result=adminService.setCounter(payload);
+        
+		return new ResObject(1,String.format("success : %d, fail : %d", result[0], result[1]), null);
+	}
 }

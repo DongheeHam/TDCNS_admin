@@ -8,6 +8,9 @@
     <select id="getDtc" parameterType="java.util.HashMap" resultType="keyMap">
     	select * from DTC where RNO=#{rno}
     </select>
+    <select id="getCounter" parameterType="java.util.HashMap" resultType="keyMap">
+    	select * from COUNTER where RNO=#{rno}
+    </select>
     
     <insert id="insertLdtc" parameterType="java.util.HashMap">
     	insert into LDTC (RNO, LANE, POINT, LX, LY) values (#{rno}, #{lane}, #{point}, #{lx}, #{ly})
@@ -15,11 +18,17 @@
     <insert id="insertDtc" parameterType="java.util.HashMap">
     	insert into DTC (RNO, POINT, DX, DY) values (#{rno}, #{point}, #{dx}, #{dy})
     </insert>
+    <insert id="insertCounter" parameterType="java.util.HashMap">
+    	insert into COUNTER (RNO, LANE, POINT, LX, LY) values (#{rno}, #{lane}, #{point}, #{lx}, #{ly})
+    </insert>
     
     <delete id="deleteLdtc" parameterType="java.util.HashMap">
     	delete from LDTC where RNO=#{rno}
     </delete>
     <delete id="deleteDtc" parameterType="java.util.HashMap">
     	delete from DTC where RNO=#{rno}
+    </delete>
+    <delete id="deleteCounter" parameterType="java.util.HashMap">
+    	delete from COUNTER where RNO=#{rno}
     </delete>
 </mapper>

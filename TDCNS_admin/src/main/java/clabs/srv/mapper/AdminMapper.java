@@ -17,4 +17,10 @@ public interface AdminMapper {
 	int deleteLdtc(Map<String, Object> map);
 	
 	int deleteDtc(Map<String, Object> map);
+
+	List<Map<String, Object>> getCounter(Map<String, String> params);
+
+	int insertCounter(HashMap<String, Object> map);
+
+	void deleteCounter(HashMap<String, Object> map);
 }

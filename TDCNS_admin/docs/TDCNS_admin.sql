@@ -55,3 +55,13 @@ CREATE TABLE LDTC(
 	primary key (RNO, LANE, POINT)
 ) ENGINE=InnoDB;
 
+DROP TABLE IF EXISTS COUNTER;
+CREATE TABLE COUNTER(
+	RNO 		int(11) not null COMMENT "ROAD 고유번호",
+	LANE 		int(11) not null COMMENT "차선(1~n)",
+	POINT 		int(11) not null COMMENT "몇번째 점인지 0~n",
+	LX 		int(11) COMMENT "x좌표",
+	LY 			int(11) COMMENT "y좌표",
+	
+	primary key (RNO, LANE, POINT)
+) ENGINE=InnoDB;
