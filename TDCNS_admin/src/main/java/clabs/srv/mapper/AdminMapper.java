@@ -23,4 +23,14 @@ public interface AdminMapper {
 	int insertCounter(HashMap<String, Object> map);
 
 	void deleteCounter(HashMap<String, Object> map);
+
+	List<Map<String, Object>> getRoadList();
+
+	int insertInter(Map<String, String> hm);
+
+	List<Map<String, Object>> getInterList();
+
+	int insertRoad(Map<String, String> hm);
+
+	Map<String, Object> getRoad(Map<String, String> hm);
 }

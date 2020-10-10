@@ -15,14 +15,14 @@ import clabs.srv.vo.TDCNS;
 public class AppConfigure implements EnvironmentAware {
 
 	private final static Logger logger = Logger.getLogger(AppConfigure.class.getName());
-	private static String configFile = "/gsvp.properties";
+	private static String configFile = "/tdcns_admin.properties";
 	public static String home;
 	
 	Environment env;
 	
     @Bean
     public TDCNS gsuiteLink() {
-    	home = env.getProperty("GSL_HOME");
+    	home = env.getProperty("TDCNS_ADMIN");
     	return new TDCNS(home + configFile);
     }
 

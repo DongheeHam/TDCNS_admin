@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="clabs.srv.mapper.DataCenterMapper">
+	<select id="getCounter" parameterType="java.util.HashMap" resultType="keyMap">
+    	select * from COUNTER where RNO=#{rno}
+    </select>
+    
+    <insert id="addDataRow" parameterType="java.util.HashMap">
+    	insert into TRAFFIC (RNO, LANE, DATE, TIME, LARGE,SMALL) values (#{rno}, #{lane}, #{date}, #{time}, #{large}, #{small})
+    </insert>
+	
+</mapper>

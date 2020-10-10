@@ -33,7 +33,7 @@
 	</logger>
 
 	<logger name="clabs">
-		<level value="info" />
+		<level value="trace" />
 	</logger>
 	
 	<logger name="com.coveo.saml">

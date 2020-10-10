@@ -2,7 +2,7 @@ use TDCNS_admin;
 
 DROP TABLE IF EXISTS INTERSECTIONS;
 CREATE TABLE INTERSECTIONS(
-	INO 		int(11) not null COMMENT "교차로 고유번호",
+	INO 		int(11) not null AUTO_INCREMENT COMMENT "교차로 고유번호",
 	NAME 		varchar(256) COMMENT "교차로 이름",
 	POS 		POINT 	COMMENT "교차로위치",
 	
@@ -12,12 +12,14 @@ CREATE TABLE INTERSECTIONS(
 
 DROP TABLE IF EXISTS ROAD;
 CREATE TABLE ROAD(
-	RNO 		int(11) not null COMMENT "진입로 고유번호",
+	RNO 		int(11) not null AUTO_INCREMENT COMMENT "진입로 고유번호",
 	INO 		int(11) not null COMMENT "진입로가 소속된 교차로 고유번호",
 	NAME 		varchar(256) COMMENT "진입로 이름",
-	STREAM 		varchar(512) COMMENT "진입로 카메라의 stream url",
+	IP 			varchar(64) not null COMMENT "모듈 ip",
+	STREAM 		varchar(512) COMMENT "진입로 모듈의 stream url",
 	PW 			varchar(512) COMMENT "stream url의 접속 비밀번호 (예상)",
 	CNO 		varchar(64) COMMENT "카메라 고유번호",
+	POS 		POINT 	COMMENT "교차로위치",
 	
 	primary key (RNO),
 	index ROAD_INO (INO),
@@ -65,3 +67,17 @@ CREATE TABLE COUNTER(
 	
 	primary key (RNO, LANE, POINT)
 ) ENGINE=InnoDB;
+
+DROP TABLE IF EXISTS TRAFFIC;
+CREATE TABLE TRAFFIC(
+	RNO 	int(11) not null COMMENT "ROAD 고유번호",
+	DATE 	varchar(10) not null COMMENT "데이터 수집 날짜 (형식:20201005)",
+	TIME 	varchar(10) not null COMMENT "데이터 수집 시간",
+	LANE 	int(11) not null COMMENT "차선(1~n)",
+	LARGE 	int(11) default 0 COMMENT "대형차수",
+	SMALL 	int(11) default 0 COMMENT "소형차수",
+	DT 	datetime default now() COMMENT "데이터 생성 시간",
+	
+	primary key (RNO, DATE, TIME, LANE)
+) ENGINE=InnoDB;
+

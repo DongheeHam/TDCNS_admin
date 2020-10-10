@@ -55,8 +55,8 @@ public class RestController extends BaseController {
 	@RequestMapping(value="/getRoad.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject getRoad(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
 		logger.info("getRoad.json - Params:" + params);
-		
-		return null;
+		Map<String,Object> road=adminService.getRoad(params.get("rno"));
+		return new ResObject(1,"",road);
 	}
 
 	@RequestMapping(value="/getArea.json", produces="application/json;charset=UTF-8")

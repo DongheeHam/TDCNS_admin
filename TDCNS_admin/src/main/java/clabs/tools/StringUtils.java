@@ -6,6 +6,7 @@ import java.security.InvalidKeyException;
 import java.security.NoSuchAlgorithmException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.UUID;
 import org.apache.commons.codec.binary.Base64;
 
@@ -30,7 +31,14 @@ public class StringUtils {
 		   }
 		   return s.toLowerCase();
 		}
-
+	public static boolean paramsCheck(Map<String, String> params,String pattern) {
+		// patterns : no,what.. (필수 파라미터들)
+		String[] patterns=pattern.split(",");
+		for(String p:patterns) {
+			if(!params.containsKey(p)) {return false;}
+		}
+		return true;
+	}
 	public static synchronized String makeDeviceID() {
 		String[] dt = simpleDateFormat.format(new Date()).split("-");
 		String[] tmp = UUID.randomUUID().toString().split("-");

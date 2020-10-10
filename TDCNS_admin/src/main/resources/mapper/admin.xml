@@ -11,7 +11,24 @@
     <select id="getCounter" parameterType="java.util.HashMap" resultType="keyMap">
     	select * from COUNTER where RNO=#{rno}
     </select>
+    <select id="getRoadList" parameterType="java.util.HashMap" resultType="keyMap">
+    	select a.*,st_x(a.POS) lng,st_y(a.POS) lat,(select NAME from INTERSECTIONS where INO=a.INO) INAME from ROAD a
+    </select>
+    <select id="getInterList" parameterType="java.util.HashMap" resultType="keyMap">
+    	select a.*,st_x(a.POS) lng,st_y(a.POS) lat from INTERSECTIONS a
+    </select>
+    <select id="getRoad" parameterType="java.util.HashMap" resultType="keyMap">
+    	select a.*,st_x(a.POS) lng,st_y(a.POS) lat,(select NAME from INTERSECTIONS where INO=a.INO) INAME from ROAD a where RNO=#{rno}
+    </select>
     
+    
+    
+    <insert id="insertInter" parameterType="java.util.HashMap">
+    	insert into INTERSECTIONS (NAME,POS) values (#{name}, ST_GeomFromText('POINT(${pos})'))
+    </insert>
+    <insert id="insertRoad" parameterType="java.util.HashMap">
+    	insert into ROAD (INO,NAME,IP,STREAM,POS) values (#{ino},#{name},#{ip},#{stream}, ST_GeomFromText('POINT(${pos})'))
+    </insert>
     <insert id="insertLdtc" parameterType="java.util.HashMap">
     	insert into LDTC (RNO, LANE, POINT, LX, LY) values (#{rno}, #{lane}, #{point}, #{lx}, #{ly})
     </insert>

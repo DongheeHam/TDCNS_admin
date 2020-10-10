@@ -190,4 +190,34 @@ private final static Logger logger = Logger.getLogger(AdminService.class.getName
 		logger.info("counter : "+counter);
 		return counter;
 	}
+	
+	public List<Map<String, Object>> getRoadList() {
+		
+		return adminMapper.getRoadList();
+	}
+
+	public int insertInter(String name, String pos) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("name", name);
+		hm.put("pos", pos);
+		return adminMapper.insertInter(hm);
+	}
+
+	public List<Map<String,Object>> getInterList() {return adminMapper.getInterList();}
+
+	public int insertRoad(String ino, String name, String ip, String stream, String pos) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("ino", ino);
+		hm.put("name", name);
+		hm.put("ip", ip);
+		hm.put("stream", stream);
+		hm.put("pos", pos);
+		return adminMapper.insertRoad(hm);
+	}
+
+	public Map<String, Object> getRoad(String rno) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("rno", rno);
+		return adminMapper.getRoad(hm);
+	}
 }
