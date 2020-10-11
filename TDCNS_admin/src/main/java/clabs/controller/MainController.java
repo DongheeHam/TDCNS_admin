@@ -46,20 +46,24 @@ public class MainController extends BaseController {
 	}
 	@RequestMapping(value="/pages/home.do")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		String path=request.getServletPath();
-		logger.debug(path +" : "+ params);
-		ModelAndView model = new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
-		return model;
+		return pages(request,response,params);
 	}
 	@RequestMapping(value="/pages/roadMgmt.do")
-	public ModelAndView pages(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		String path=request.getServletPath();
-		logger.debug(path +" : "+ params);
-		ModelAndView model = new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
-		return model;
+	public ModelAndView roadMgmt(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		return pages(request,response,params);
 	}
-
-	
+	@RequestMapping(value="/pages/defineArea.do")
+	public ModelAndView defineArea(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		return pages(request,response,params);
+	}
+	@RequestMapping(value="/pages/monitoring.do")
+	public ModelAndView monitoring(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		return pages(request,response,params);
+	}
+	private ModelAndView pages(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+	}
 	@RequestMapping(value="/*.json", produces="application/json;charset=UTF-8")
 	public @ResponseBody ResObject rest(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
 		String path=request.getServletPath();

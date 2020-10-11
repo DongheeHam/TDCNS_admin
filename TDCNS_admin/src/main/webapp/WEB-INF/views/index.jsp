@@ -78,12 +78,12 @@
 		</div>
 	  </li> -->
 		<li class="nav-item">
-		<a class="nav-link" onclick="app.go('/roadMgmt')">
+		<a class="nav-link" href="javascript:app.go('/roadMgmt')">
 		  <i class="fas fa-fw fa-chart-bar"></i>
 		  <span>교차로 등록 현황</span></a>
 	  </li>
 	  <li class="nav-item">
-		<a class="nav-link" href="charts.html">
+		<a class="nav-link" href="javascript:app.go('/defineArea')">
 		  <i class="fas fa-fw fa-car"></i>
 		  <span>교차로 인식존 설정</span></a>
 	  </li>
@@ -113,20 +113,20 @@
 
 	  <!-- Nav Item - Charts -->
 	  <li class="nav-item">
-		<a class="nav-link" href="charts.html">
+		<a class="nav-link" href="javascript:app.go('/defineArea')">
 		  <i class="fas fa-fw fa-server"></i>
 		  <span>Open API</span></a>
 	  </li>
 
 	  <!-- Nav Item - Tables -->
 	  <li class="nav-item">
-		<a class="nav-link" href="tables.html">
+		<a class="nav-link" href="javascript:app.go('/defineArea')">
 		  <i class="fas fa-fw fa-chart-pie"></i>
 		  <span>Data Statistics</span></a>
 	  </li>
 <!-- Nav Item - Tables -->
 	  <li class="nav-item">
-		<a class="nav-link" href="tables.html">
+		<a class="nav-link" href="javascript:app.go('/monitoring')">
 		  <i class="fas fa-fw fa-desktop"></i>
 		  <span>Monitoring</span></a>
 	  </li>

@@ -97,28 +97,30 @@
 var roadList,interList;
 var mgmtMap;
 $(document).ready(function(){
-	app.get('/getRoadList',{},function(res){
-		console.log('/getRoadList - res : ',res);
-		if(res.rc<0){
-			alert("error:"+res.resMessage);
-		}else{
-			roadList=res.result;
-			drowRoadTable();
-			drowRoadMarker();
-		}
-	});
-	app.get('/getInterList',{},function(res){
-		console.log('/getInterList - res : ',res);
-		if(res.rc<0){
-			alert("error:"+res.resMessage);
-		}else{
-			interList=res.result;
-			drowInterTable();
-			drowInterMarker();
-		}
-	});
-	//mgmtMap=kakaoMap.createMap('inter-mgmt-map-wrap');
-	mgmtMap=new KakaoMap('inter-mgmt-map-wrap',{search:true});
+	setTimeout(function(){
+		app.get('/getRoadList',{},function(res){
+			console.log('/getRoadList - res : ',res);
+			if(res.rc<0){
+				alert("error:"+res.resMessage);
+			}else{
+				roadList=res.result;
+				drowRoadTable();
+				drowRoadMarker();
+			}
+		});
+		app.get('/getInterList',{},function(res){
+			console.log('/getInterList - res : ',res);
+			if(res.rc<0){
+				alert("error:"+res.resMessage);
+			}else{
+				interList=res.result;
+				drowInterTable();
+				drowInterMarker();
+			}
+		});
+		//mgmtMap=kakaoMap.createMap('inter-mgmt-map-wrap');
+		mgmtMap=new KakaoMap('inter-mgmt-map-wrap',{search:true});
+	},300);
 });
 function drowRoadTable(){
 	var html='';
