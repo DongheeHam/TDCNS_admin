@@ -47,16 +47,40 @@ private final static Logger logger = Logger.getLogger(DataCenterService.class.ge
 	}
 
 	public boolean authenticationServiceKey(String serviceKey) {
-		// TODO 키 검증
-		return true;
+		return dataCenterMapper.getApiKey(serviceKey)!=null;
 	}
 
-	public List<Map<String, Object>> getDataRow(String rno, String dt) {
+	public List<Map<String, Object>> getDataRow(String rno, String date, String time) {
 		Map<String,String> hm= new HashMap<>();
 		hm.put("rno", rno);
-		hm.put("dt", dt);
+		hm.put("date", date);
+		hm.put("time", time);
 		
 		return dataCenterMapper.getDataRow(hm);
+	}
+
+	public List<Map<String, Object>> getWeekStat(String rno, String startDate, String endDate) {
+		Map<String,String> hm= new HashMap<>();
+		hm.put("rno", rno);
+		hm.put("startDate", startDate);
+		hm.put("endDate", endDate);
+		
+		return dataCenterMapper.getWeekStat(hm);
+	}
+	public List<Map<String, Object>> getDayStat(String rno, String date) {
+		Map<String,String> hm= new HashMap<>();
+		hm.put("rno", rno);
+		hm.put("date", date);
+		
+		return dataCenterMapper.getDayStat(hm);
+	}
+	public Map<String, Object> getSizeStat(String rno) {return dataCenterMapper.getSizeStat(rno);}
+	public List<Map<String, Object>> getLaneStat(String rno) {return dataCenterMapper.getLaneStat(rno);}
+
+	public void insertApiKey(String key) {
+		Map<String,String> hm= new HashMap<>();
+		hm.put("key", key);
+		dataCenterMapper.insertApiKey(hm);
 	}
 	
 }

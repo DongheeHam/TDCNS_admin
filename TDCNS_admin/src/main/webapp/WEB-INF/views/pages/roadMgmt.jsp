@@ -76,7 +76,7 @@
 										<th>교차로명(교차로번호)</th>
 										<th>진입로명(진입로번호)</th>
 										<th>스트리밍 URL</th>
-										<th>카메라</th>
+										<th>IP(HOST):PORT</th>
 										<th>좌표</th>
 									</tr>
 								</thead>
@@ -128,9 +128,10 @@ function drowRoadTable(){
 		html+='<tr>';
 		var road=roadList[i];
 		html+=	'<td>'+road.iname+'('+road.ino+')</td>';
-		html+=	'<td>'+road.name+'('+road.rno+')</td>';
+		html+=	'<td><a href="javascript:app.loadDialog(\'/roadForm\',{rno:\''+road.rno+'\'},\'modal-lg\')">'+road.name+'('+road.rno+')</a></td>';
+		//html+=	'<td><a>'+road.name+'('+road.rno+')</a></td>';
 		html+=	'<td>'+road.stream+'</td>';
-		html+=	'<td> </td>';
+		html+=	'<td>'+road.ip+'</td>';
 		html+=	'<td>'+road.lat+' '+road.lng+'</td>';
 		html+='</tr>';
 	}
@@ -143,7 +144,8 @@ function drowInterTable(){
 		var inter=interList[i];
 		html+='<tr>';
 		html+=	'<td>'+inter.ino+'</td>';
-		html+=	'<td>'+inter.name+'</td>';
+		html+=	'<td><a href="javascript:app.loadDialog(\'/interForm\',{ino:\''+inter.ino+'\'},\'modal-lg\')">'+inter.name+'</a></td>';
+		//html+=	'<td><a>'+inter.name+'</a></td>';
 		html+=	'<td>'+inter.lat+' '+inter.lng+'</td>';
 		html+='</tr>';
 	}
@@ -173,7 +175,8 @@ function drowInterMarker(){
 		kakao.maps.event.addListener(marker, 'mouseover', makeOverListener(mgmtMap.map, marker, infowindow));
 	    kakao.maps.event.addListener(marker, 'mouseout', makeOutListener(infowindow));
 	}
-	mgmtMap.map.setBounds(bounds);
+	if(interList.length)
+		mgmtMap.map.setBounds(bounds);
 }
 function drowRoadMarker(){
 	var imageSrc='/res/img/road2.png';

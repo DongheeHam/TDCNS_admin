@@ -220,4 +220,29 @@ private final static Logger logger = Logger.getLogger(AdminService.class.getName
 		hm.put("rno", rno);
 		return adminMapper.getRoad(hm);
 	}
+
+	public Map<String,Object> getInter(String ino) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("ino", ino);
+		return adminMapper.getInter(hm);
+	}
+
+	public int updateInter(String ino, String name, String pos) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("ino", ino);
+		hm.put("name", name);
+		hm.put("pos", pos);
+		return adminMapper.updateInter(hm);
+	}
+
+	public int updateRoad(String rno, String ino, String name, String ip, String stream, String pos) {
+		Map<String,String> hm=new HashMap<String, String>();
+		hm.put("rno", rno);
+		hm.put("ino", ino);
+		hm.put("name", name);
+		hm.put("ip", ip);
+		hm.put("stream", stream);
+		hm.put("pos", pos);
+		return adminMapper.updateRoad(hm);
+	}
 }

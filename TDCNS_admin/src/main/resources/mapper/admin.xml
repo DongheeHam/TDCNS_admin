@@ -20,8 +20,17 @@
     <select id="getRoad" parameterType="java.util.HashMap" resultType="keyMap">
     	select a.*,st_x(a.POS) lng,st_y(a.POS) lat,(select NAME from INTERSECTIONS where INO=a.INO) INAME from ROAD a where RNO=#{rno}
     </select>
+    <select id="getInter" parameterType="java.util.HashMap" resultType="keyMap">
+    	select a.*,st_x(a.POS) lng,st_y(a.POS) lat from INTERSECTIONS a where ino=#{ino}
+    </select>
     
     
+    <update id="updateInter" parameterType="java.util.HashMap">
+    	update INTERSECTIONS set NAME=#{name},POS= ST_GeomFromText('POINT(${pos})') where INO=#{ino}
+    </update>
+    <update id="updateRoad" parameterType="java.util.HashMap">
+    	update ROAD set INO=#{ino}, NAME=#{name}, IP=#{ip}, STREAM=#{stream}, POS=ST_GeomFromText('POINT(${pos})') where RNO=#{rno}
+    </update>
     
     <insert id="insertInter" parameterType="java.util.HashMap">
     	insert into INTERSECTIONS (NAME,POS) values (#{name}, ST_GeomFromText('POINT(${pos})'))

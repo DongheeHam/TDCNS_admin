@@ -33,4 +33,10 @@ public interface AdminMapper {
 	int insertRoad(Map<String, String> hm);
 
 	Map<String, Object> getRoad(Map<String, String> hm);
+
+	Map<String, Object> getInter(Map<String, String> hm);
+
+	int updateInter(Map<String, String> hm);
+
+	int updateRoad(Map<String, String> hm);
 }

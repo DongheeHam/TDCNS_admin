@@ -20,6 +20,7 @@ import org.springframework.web.servlet.ModelAndView;
 import clabs.srv.service.AdminService;
 import clabs.srv.service.DataCenterService;
 import clabs.tools.ResObject;
+import clabs.tools.StringUtils;
 
 
 /*
@@ -46,19 +47,33 @@ public class MainController extends BaseController {
 	}
 	@RequestMapping(value="/pages/home.do")
 	public ModelAndView home(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		return pages(request,response,params);
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
 	}
 	@RequestMapping(value="/pages/roadMgmt.do")
 	public ModelAndView roadMgmt(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		return pages(request,response,params);
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
 	}
 	@RequestMapping(value="/pages/defineArea.do")
 	public ModelAndView defineArea(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		return pages(request,response,params);
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
 	}
 	@RequestMapping(value="/pages/monitoring.do")
 	public ModelAndView monitoring(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
-		return pages(request,response,params);
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+	}
+	@RequestMapping(value="/pages/statistics.do")
+	public ModelAndView statistics(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+	}@RequestMapping(value="/pages/openApi.do")
+	public ModelAndView openApi(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
+		String path=request.getServletPath();logger.debug(path +" : "+ params);
+		ModelAndView model= new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+		return model;
 	}
 	private ModelAndView pages(HttpServletRequest request, HttpServletResponse response, @RequestParam Map<String,String> params) throws IOException{
 		String path=request.getServletPath();logger.debug(path +" : "+ params);
@@ -76,10 +91,11 @@ public class MainController extends BaseController {
 			}else if("/insertInter.json".equals(path)) {
 				String pos=String.format("%s %s", params.get("lng"),params.get("lat"));
 				String name=params.get("name");
-				return new ResObject(adminService.insertInter(name,pos),"",null);
+				return new ResObject(params.containsKey("ino")?adminService.updateInter(params.get("ino"),name,pos):adminService.insertInter(name,pos),"",null);
 			}else if("/insertRoad.json".equals(path)) {
 				String pos=String.format("%s %s", params.get("lng"),params.get("lat"));
-				return new ResObject(adminService.insertRoad(params.get("ino"),params.get("name"),params.get("ip"),params.get("stream"),pos),"",null);
+				return new ResObject(params.containsKey("rno")?adminService.updateRoad(params.get("rno"),params.get("ino"),params.get("name"),params.get("ip"),params.get("stream"),pos):
+					adminService.insertRoad(params.get("ino"),params.get("name"),params.get("ip"),params.get("stream"),pos),"",null);
 			}else{
 				logger.error("매핑되는 url이 없음.");
 				return new ResObject(-1,"error",null);
@@ -92,16 +108,33 @@ public class MainController extends BaseController {
 	
 	@RequestMapping(value="/dialog/interForm.do")
 	public ModelAndView interForm(HttpServletRequest request, @RequestParam Map<String,String> params) throws IOException{
-		return dialog(request,params);
+		String path=request.getServletPath();logger.debug(path+" - params : "+params);
+		ModelAndView model=new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+		if(params.containsKey("ino")) {
+			model.addObject("inter",adminService.getInter(params.get("ino")));
+		}
+		return model;
 	}
 	@RequestMapping(value="/dialog/roadForm.do")
 	public ModelAndView roadForm(HttpServletRequest request, @RequestParam Map<String,String> params) throws IOException{
-		return dialog(request,params);
+		String path=request.getServletPath();logger.debug(path+" - params : "+params);
+		ModelAndView model=new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+		if(params.containsKey("rno")) {
+			model.addObject("road",adminService.getRoad(params.get("rno")));
+		}
+		return model;
+	}
+	@RequestMapping(value="/dialog/getApiKey.do")
+	public ModelAndView getApiKey(HttpServletRequest request, @RequestParam Map<String,String> params) throws IOException{
+		String path=request.getServletPath();logger.debug(path+" - params : "+params);
+		ModelAndView model=new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
+		String key=StringUtils.makeDeviceID();
+		dataCenterService.insertApiKey(key);
+		model.addObject("key", key);
+		return model;
 	}
 	private ModelAndView dialog(HttpServletRequest request, @RequestParam Map<String,String> params) throws IOException{
-		String path=request.getServletPath();
-		logger.debug(path+" - params : "+params);
-		ModelAndView model = new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
-		return model;
+		String path=request.getServletPath();logger.debug(path+" - params : "+params);
+		return new ModelAndView(path.substring(0, path.lastIndexOf(".do")));
 	}
 }

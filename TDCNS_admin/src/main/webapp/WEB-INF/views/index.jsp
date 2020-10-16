@@ -23,11 +23,13 @@
   <link href="/res/css/sb-admin-2.css" rel="stylesheet">
   
   <script src="/res/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="/res/js/moment.min.js"></script>
   <script src="/res/js/sb-admin-2.min.js"></script>
   <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=4d9b96ffe2c16e1203c4f883ca726d5f&libraries=services"></script>
   <script src="/res/vendor/jquery-easing/jquery.easing.min.js"></script>
   <script src="/res/vendor/datatables/jquery.dataTables.min.js"></script>
   <script src="/res/vendor/datatables/dataTables.bootstrap4.min.js"></script>
+  <script src="/res/vendor/chart.js/Chart.min.js"></script>
   
   <script src="/res/js/kakaoMap.js"></script>
   <link href="/res/css/common.css" rel="stylesheet">
@@ -87,6 +89,12 @@
 		  <i class="fas fa-fw fa-car"></i>
 		  <span>교차로 인식존 설정</span></a>
 	  </li>
+	  <!-- Nav Item - Tables -->
+	  <li class="nav-item">
+		<a class="nav-link" href="javascript:app.go('/statistics')">
+		  <i class="fas fa-fw fa-chart-pie"></i>
+		  <span>Data Statistics</span></a>
+	  </li>
 	  <!-- Nav Item - Utilities Collapse Menu -->
 	  <!-- <li class="nav-item">
 		<a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities" aria-expanded="true" aria-controls="collapseUtilities">
@@ -113,17 +121,11 @@
 
 	  <!-- Nav Item - Charts -->
 	  <li class="nav-item">
-		<a class="nav-link" href="javascript:app.go('/defineArea')">
+		<a class="nav-link" href="javascript:app.go('/openApi')">
 		  <i class="fas fa-fw fa-server"></i>
 		  <span>Open API</span></a>
 	  </li>
 
-	  <!-- Nav Item - Tables -->
-	  <li class="nav-item">
-		<a class="nav-link" href="javascript:app.go('/defineArea')">
-		  <i class="fas fa-fw fa-chart-pie"></i>
-		  <span>Data Statistics</span></a>
-	  </li>
 <!-- Nav Item - Tables -->
 	  <li class="nav-item">
 		<a class="nav-link" href="javascript:app.go('/monitoring')">
@@ -442,7 +444,9 @@
 				});
 			},
 			get : function(uri, param, cb){
-				$.post("${contextPath}" + uri + ".json", (typeof param !== 'object') ? {} : param, function(res){
+				if(typeof param !== 'object') param={}
+				param.serviceKey='8f929baf20203e1f1047ee149a100089e1ea629dfe'
+				$.post("${contextPath}" + uri + ".json", param, function(res){
 					if(typeof cb === "function") cb(res);
 				});
 			},

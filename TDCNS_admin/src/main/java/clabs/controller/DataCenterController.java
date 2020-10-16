@@ -63,23 +63,94 @@ public class DataCenterController extends BaseController {
         try {
 			logger.info("getDataRow.json - Params:" + params);
 			// 파라미터 확인
-			if(!StringUtils.paramsCheck(params,"serviceKey,rno,dt")) {
-				return new ResObject(403,"Missing Required Parameters");
-			}
+			if(!StringUtils.paramsCheck(params,"serviceKey,rno,date,time")) return new ResObject(403,"Missing Required Parameters");
 			
 			// 키 검증
 			String serviceKey=params.get("serviceKey");
-			if(!dataCenterService.authenticationServiceKey(serviceKey)) {
-				
-			}
-			
-			List<Map<String,Object>> result =dataCenterService.getDataRow(params.get("rno"),params.get("dt"));
+			if(!dataCenterService.authenticationServiceKey(serviceKey)) return new ResObject(401,"unauthenticated api key");
+			List<Map<String,Object>> result =dataCenterService.getDataRow(params.get("rno"),params.get("date"),params.get("time"));
     		
-    		return new ResObject(1,"success!");
+    		return new ResObject(1,"success!",result);
         }catch (Exception e) {
         	e.printStackTrace();
 			return new ResObject(-1,e.getMessage());
 		}
 	}
 	
+	@RequestMapping(value="/getWeekStat.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getWeekStat(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+        try {
+			logger.info("getWeekStat.json - Params:" + params);
+			// 파라미터 확인
+			if(!StringUtils.paramsCheck(params,"serviceKey,rno,endDate")) return new ResObject(403,"Missing Required Parameters");
+			params.put("startDate", ""+(Integer.parseInt(params.get("endDate"))-7));
+			// 키 검증
+			String serviceKey=params.get("serviceKey");
+			if(!dataCenterService.authenticationServiceKey(serviceKey)) return new ResObject(401,"unauthenticated api key");
+			
+			List<Map<String,Object>> result =dataCenterService.getWeekStat(params.get("rno"),params.get("startDate"),params.get("endDate"));
+    		
+    		return new ResObject(1,"success!",result);
+        }catch (Exception e) {
+        	e.printStackTrace();
+			return new ResObject(-1,e.getMessage());
+		}
+	}
+	@RequestMapping(value="/getDayStat.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getDayStat(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+        try {
+			logger.info("getDayStat.json - Params:" + params);
+			// 파라미터 확인
+			if(!StringUtils.paramsCheck(params,"serviceKey,rno,date")) return new ResObject(403,"Missing Required Parameters");
+			
+			// 키 검증
+			String serviceKey=params.get("serviceKey");
+			if(!dataCenterService.authenticationServiceKey(serviceKey)) return new ResObject(401,"unauthenticated api key");
+			
+			List<Map<String,Object>> result =dataCenterService.getDayStat(params.get("rno"),params.get("date"));
+    		
+    		return new ResObject(1,"success!",result);
+        }catch (Exception e) {
+        	e.printStackTrace();
+			return new ResObject(-1,e.getMessage());
+		}
+	}
+	@RequestMapping(value="/getSizeStat.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getSizeStat(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+        try {
+			logger.info("getSizeStat.json - Params:" + params);
+			// 파라미터 확인
+			if(!StringUtils.paramsCheck(params,"serviceKey,rno")) return new ResObject(403,"Missing Required Parameters");
+			
+			// 키 검증
+			String serviceKey=params.get("serviceKey");
+			if(!dataCenterService.authenticationServiceKey(serviceKey)) return new ResObject(401,"unauthenticated api key");
+			
+			Map<String,Object> result =dataCenterService.getSizeStat(params.get("rno"));
+    		
+    		return new ResObject(1,"success!",result);
+        }catch (Exception e) {
+        	e.printStackTrace();
+			return new ResObject(-1,e.getMessage());
+		}
+	}
+	@RequestMapping(value="/getLaneStat.json", produces="application/json;charset=UTF-8")
+	public @ResponseBody ResObject getLaneStat(HttpServletRequest request, @RequestParam Map<String, String> params) throws IOException{
+        try {
+			logger.info("getLaneStat.json - Params:" + params);
+			// 파라미터 확인
+			if(!StringUtils.paramsCheck(params,"serviceKey,rno")) return new ResObject(403,"Missing Required Parameters");
+			
+			// 키 검증
+			String serviceKey=params.get("serviceKey");
+			if(!dataCenterService.authenticationServiceKey(serviceKey)) return new ResObject(401,"unauthenticated api key");
+			
+			List<Map<String,Object>> result =dataCenterService.getLaneStat(params.get("rno"));
+    		
+    		return new ResObject(1,"success!",result);
+        }catch (Exception e) {
+        	e.printStackTrace();
+			return new ResObject(-1,e.getMessage());
+		}
+	}
 }
