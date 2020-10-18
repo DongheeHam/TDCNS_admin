@@ -18,6 +18,7 @@
   <link href="/res/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
   <!-- <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet"> -->
 	<link href="https://fonts.googleapis.com/css?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap" rel="stylesheet">
 
   <!-- Custom styles for this template-->
   <link href="/res/css/sb-admin-2.css" rel="stylesheet">
@@ -52,7 +53,7 @@
 
 	  <!-- Nav Item - Dashboard -->
 	  <li class="nav-item active">
-		<a class="nav-link" href="index.html">
+		<a class="nav-link" href="javascript:app.go('/home',{});">
 		  <i class="fas fa-fw fa-tachometer-alt"></i>
 		  <span>Dashboard</span></a>
 	  </li>
@@ -338,13 +339,13 @@
         </div>
         
         <!-- Footer -->
-      <footer class="sticky-footer bg-white">
+      <!-- <footer class="sticky-footer bg-white">
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Your Website 2020</span>
           </div>
         </div>
-      </footer>
+      </footer> -->
       <!-- End of Footer -->
       
       <!-- Scroll to Top Button-->

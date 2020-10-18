@@ -58,7 +58,7 @@
 					<canvas id="dayStatistics"></canvas>
 				</div>
 				<hr>
-				Styling for the area chart can be found in the <code>/js/demo/chart-area-demo.js</code> file.
+				진입로의 일자별 교통량 통계를 제공하는 서비스
 			</div>
 		</div>
 
@@ -78,7 +78,7 @@
 					<canvas id="weekStatistics"></canvas>
 				</div>
 				<hr>
-				Styling for the bar chart can be found in the <code>/js/demo/chart-bar-demo.js</code> file.
+				진입로의 주간별 교통량 통계를 제공하는 서비스
 			</div>
 		</div>
 
@@ -97,7 +97,7 @@
 					<canvas id="laneStatistics"></canvas>
 				</div>
 				<hr>
-				Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
+				진입로의 차선별 교통량 통계를 제공하는 서비스
 			</div>
 		</div>
 		<div class="card shadow mb-4">
@@ -111,7 +111,7 @@
 					<canvas id="sizeStatistics"></canvas>
 				</div>
 				<hr>
-				Styling for the donut chart can be found in the <code>/js/demo/chart-pie-demo.js</code> file.
+				진입로의 차량 크기별 교통량 통계를 제공하는 서비스
 			</div>
 		</div>
 	</div>

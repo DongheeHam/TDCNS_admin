@@ -2,31 +2,30 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="clabs.srv.mapper.DataCenterMapper">
     <select id="getDataRow" parameterType="java.util.HashMap" resultType="keyMap">
-    	select a.*,b.NAME road_name,b.INO,(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME, 
-    	st_x(b.POS) lng,st_y(b.POS) lat
-    	from TRAFFIC a left join ROAD b on a.rno=b.rno where RNO=#{rno} and DATE=#{date} and TIME=#{time}
+    	select a.*,b.NAME road_name,b.INO,(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME
+    	from TRAFFIC a left join ROAD b on a.rno=b.rno where a.RNO=#{rno} and a.DATE=#{date} and a.TIME=#{time}
     </select>
     <select id="getWeekStat" parameterType="java.util.HashMap" resultType="keyMap">
     	<![CDATA[
 		select a.RNO,a.DATE,sum(a.LARGE) LARGE,sum(a.SMALL) SMALL ,b.NAME road_name,b.INO,
-		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME, st_x(b.POS) lng,st_y(b.POS) lat
-		from TRAFFIC a left join ROAD b on a.rno=b.rno where RNO=#{rno} and DT>#{startDate} and DT<=#{endDate} group by DATE
+		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME
+		from TRAFFIC a left join ROAD b on a.rno=b.rno where a.RNO=#{rno} and a.DT>#{startDate} and a.DT<=#{endDate} group by a.DATE
 		]]>
     </select>
     <select id="getDayStat" parameterType="java.util.HashMap" resultType="keyMap">
 		select a.RNO,a.DATE,concat(left(a.TIME,2),'00') TIME_,sum(a.LARGE) LARGE,sum(a.SMALL) SMALL ,b.NAME road_name,b.INO,
-		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME, st_x(b.POS) lng,st_y(b.POS) lat
-		from TRAFFIC a left join ROAD b on a.rno=b.rno where RNO=#{rno} and DATE=#{date} group by TIME_
+		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME
+		from TRAFFIC a left join ROAD b on a.rno=b.rno where a.RNO=#{rno} and a.DATE=#{date} group by TIME_
     </select>
     <select id="getSizeStat" parameterType="java.util.HashMap" resultType="keyMap">
 		select a.RNO,sum(a.LARGE) LARGE,sum(a.SMALL) SMALL ,b.NAME road_name,b.INO,
-		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME, st_x(b.POS) lng,st_y(b.POS) lat
-		from TRAFFIC a left join ROAD b on a.rno=b.rno where RNO=#{rno} group by RNO
+		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME
+		from TRAFFIC a left join ROAD b on a.rno=b.rno where a.RNO=#{rno} group by a.RNO
     </select>
     <select id="getLaneStat" parameterType="java.util.HashMap" resultType="keyMap">
 		select a.RNO,a.LANE,sum(a.LARGE) LARGE,sum(a.SMALL) SMALL  ,b.NAME road_name,b.INO,
-		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME, st_x(b.POS) lng,st_y(b.POS) lat
-		from TRAFFIC a left join ROAD b on a.rno=b.rno where RNO=#{rno} group by LANE
+		(select NAME from INTERSECTIONS where INO=b.INO) INTERSECTION_NAME
+		from TRAFFIC a left join ROAD b on a.rno=b.rno where a.RNO=#{rno} group by a.LANE
     </select>
     <select id="getApiKey" parameterType="java.util.HashMap" resultType="keyMap">
 		select * from API_KEY where API_KEY=#{serviceKey}
